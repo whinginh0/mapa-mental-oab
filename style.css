@@ -152,6 +152,21 @@ ol {
   position: relative;
 }
 
+/* Otimização de Performance: Acelera o carregamento inicial pulando o layout de seções fora da viewport */
+.section-target,
+.section-demo,
+.section-bonus,
+.section-disciplines,
+.section-comparativo,
+.section-plans,
+.section-guarantee,
+.section-faq,
+.section-final-cta,
+.footer {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 600px;
+}
+
 .section-header {
   margin-bottom: 2rem;
 }
@@ -566,6 +581,12 @@ ol {
   line-height: 1.55;
 }
 
+.target-card__desc em {
+  font-style: normal;
+  font-weight: 700;
+  color: var(--color-navy-dark);
+}
+
 /* ==========================================================================
    SEÇÃO 4 — DEMONSTRAÇÃO DO MATERIAL (CARROSSEL)
    ========================================================================== */
@@ -603,11 +624,11 @@ ol {
 }
 
 .marquee-track--left {
-  animation: scrollMarqueeLeft 55s linear infinite;
+  animation: scrollMarqueeLeft 30s linear infinite;
 }
 
 .marquee-track--right {
-  animation: scrollMarqueeRight 55s linear infinite;
+  animation: scrollMarqueeRight 30s linear infinite;
 }
 
 .marquee-wrapper:hover .marquee-track,
