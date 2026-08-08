@@ -216,29 +216,49 @@ function initFaqAccordion() {
   const faqItems = document.querySelectorAll(".faq-item");
 
   faqItems.forEach(item => {
-    const header = item.querySelector(".faq-item__header");
-    if (!header) return;
+    const trigger = item.querySelector(".faq-question") || item;
+    const body = item.querySelector(".faq-item__body");
 
-    header.addEventListener("click", () => {
-      const isOpen = item.classList.contains("active");
+    // Garante que comece 100% fechado
+    item.classList.remove("active");
+    if (trigger) trigger.setAttribute("aria-expanded", "false");
+    if (body) {
+      body.style.display = "none";
+      body.style.maxHeight = "0px";
+    }
 
-      // Fecha todos os outros itens para manter organizado
+    trigger.addEventListener("click", (e) => {
+      e.preventDefault();
+      const isActive = item.classList.contains("active");
+
+      // Fecha todos os outros itens para manter limpo
       faqItems.forEach(otherItem => {
         if (otherItem !== item) {
           otherItem.classList.remove("active");
+          const otherBtn = otherItem.querySelector(".faq-question");
+          if (otherBtn) otherBtn.setAttribute("aria-expanded", "false");
           const otherBody = otherItem.querySelector(".faq-item__body");
-          if (otherBody) otherBody.style.maxHeight = null;
+          if (otherBody) {
+            otherBody.style.display = "none";
+            otherBody.style.maxHeight = "0px";
+          }
         }
       });
 
-      // Alterna o item clicado
-      item.classList.toggle("active", !isOpen);
-      const body = item.querySelector(".faq-item__body");
-      if (body) {
-        if (!isOpen) {
+      // Alterna o item atual
+      if (!isActive) {
+        item.classList.add("active");
+        trigger.setAttribute("aria-expanded", "true");
+        if (body) {
+          body.style.display = "block";
           body.style.maxHeight = body.scrollHeight + 30 + "px";
-        } else {
-          body.style.maxHeight = null;
+        }
+      } else {
+        item.classList.remove("active");
+        trigger.setAttribute("aria-expanded", "false");
+        if (body) {
+          body.style.display = "none";
+          body.style.maxHeight = "0px";
         }
       }
     });

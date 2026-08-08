@@ -1468,16 +1468,15 @@ ol {
   color: var(--color-gray-600);
 }
 
-.faq-item.active .faq-icon {
-  transform: rotate(45deg);
-  background-color: #fee2e2;
-  color: #dc2626;
-}
-
 .faq-item__body {
+  display: none;
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.faq-item.active .faq-item__body {
+  display: block;
 }
 
 .faq-item__body p {
